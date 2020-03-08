@@ -23,6 +23,20 @@ class Irrigation(Device):
         json_dict = json.loads(json_string)
         return cls(**json_dict)
     
+    def to_json(self):
+        return json.dumps(self.__dict__,default=Irrigation.jsonConverter)
+    
+    @staticmethod
+    def jsonConverter(j):
+        if isinstance(j,datetime.datetime):
+            return j.isoformat()
+        elif isinstance(j,datetime.timedelta):
+            tempDatetime = datetime.datetime.now()
+            tempDatetime.hour = j.hours
+            tempDatetime.minute = j.minutes
+            tempDatetime.second = j.seconds
+            return tempDatetime.isoformat()
+    
     def isDayToIrrigate(self, day):
         if day in daysOfWeekToIrrigate:
             return True
