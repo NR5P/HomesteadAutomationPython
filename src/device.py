@@ -43,11 +43,17 @@ class Device:
         return True
     
     @staticmethod
-    def convertDatetimeToTimeDelta(isoDateTime):
+    def convertISOToTimeDelta(isoDateTime):
         return datetime.timedelta(hours=int(isoDateTime[11:13]),
                                   minutes=int(isoDateTime[14:16]),
                                   seconds=int(isoDateTime[17:19]))
 
+    @staticmethod
+    def convertToDatetimeTimedeltaDict(timesToConvert):
+        newIrrigationDict = {}
+        for k, v in timesToConvert.items():
+            newIrrigationDict[datetime.datetime.strptime(k,"%Y-%m-%dT%H:%M:%S%z")] = Device.convertISOToTimeDelta(v)
+        return newIrrigationDict
 
         
         
