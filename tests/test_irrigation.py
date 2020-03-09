@@ -45,6 +45,10 @@ class TestIrrigation(unittest.TestCase):
         irrigation3 = Irrigation.from_json(self.jsonString)
         testJson = irrigation3.to_json()
         self.assertEqual(testJson, testJson)
+    
+    def test_isDayToIrrigate(self):
+        pass
+        #self.assertTrue(self.irrigation1.isDayToIrrigate())
 
 
 if __name__ == "__main__":

@@ -18,6 +18,12 @@ class Irrigation(Device):
         if self not in Device.deviceList:
             Device.deviceList.append(self)
 
+    def run(self):
+        pass
+        #if isDayToIrrigate():
+            #for irrigationTime, irrigationDuration in self.irrigationTimes.items():
+
+
     @classmethod
     def from_json(cls, json_string):
         json_dict = json.loads(json_string)
@@ -43,6 +49,8 @@ class Irrigation(Device):
             tempDict[k.isoformat()] = v.total_seconds()
         return tempDict
     
-    def isDayToIrrigate(self, day):
-        if day in daysOfWeekToIrrigate:
+    def isDayToIrrigate(self):
+        if datetime.datetime.today().weekday() in self.daysOfWeekToIrrigate:
             return True
+        else:
+            return False
