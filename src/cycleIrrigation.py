@@ -24,3 +24,16 @@ class CycleIrrigation(Device):
     def run(self):
         pass
 
+    @classmethod
+    def from_json(cls, json_string):
+        json_dict = json.loads(json_string)
+        return cls(**json_dict)
+    
+    def to_json(self):
+        return json.dumps(self.__dict__,default=self.to_json_helper)
+
+    def to_json_helper(self, value):
+        if isinstance(value,datetime.datetime):
+            return value.isoformat()
+        elif isinstance(value,datetime.timedelta):
+            return int(value.total_seconds())
