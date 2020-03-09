@@ -34,8 +34,7 @@ class Irrigation(Device):
                 tempDict[k] = v.isoformat()
             else:
                 tempDict[k] = v
-        print(json.dumps(tempDict))
-        #return json.dumps(self.__dict__,default=Irrigation.jsonConverter)
+        return json.dumps(tempDict)
     
     @staticmethod
     def jsonConverter(j):
