@@ -13,8 +13,8 @@ class CycleIrrigation(Device):
     """
     def __init__(self, id, name, notes, pin, cycleOnTime, cycleOffTime, blackoutStartTime, blackoutStopTime):
         super().__init__(id, name, notes, pin)
-        self.cycleOnTime = Device.convertISOToTimeDelta(cycleOnTime)
-        self.cycleOffTime = Device.convertISOToTimeDelta(cycleOffTime)
+        self.cycleOnTime = datetime.timedelta(seconds=cycleOnTime)
+        self.cycleOffTime = datetime.timedelta(seconds=cycleOffTime)
         self.blackoutStartTime = datetime.datetime.strptime(blackoutStartTime, "%Y-%m-%dT%H:%M:%S%z")
         self.blackoutStopTime = datetime.datetime.strptime(blackoutStopTime, "%Y-%m-%dT%H:%M:%S%z")
 
