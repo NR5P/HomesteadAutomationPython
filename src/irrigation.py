@@ -8,7 +8,7 @@ class Irrigation(Device):
     Attributes:
         daysOfWeekToIrrigate = list of numbers for days of week
         irrigationTimes = dict of key vals keys are datetime and values are timedeltas, 
-        keys for times to irrigate and time deltas for the irrigation
+        keys for times to irrigate and time deltas for the irrigation length
     """
     def __init__(self, id, name, notes, pin, daysOfWeekToIrrigate, irrigationTimes):
         super().__init__(id, name, notes, pin)

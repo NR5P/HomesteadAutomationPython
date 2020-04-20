@@ -44,6 +44,11 @@ class Device:
     
     @staticmethod
     def convertToDatetimeTimedeltaDict(timesToConvert):
+        """
+            takes a dict of times to irrigate (key) and length of time to irrigate (value). 
+            converts the time to irrigate from 8601 and converts it to a datetime and takes the
+            seconds (value) and converts to a time delta. then returns the dict of k, v (datetime, timedelta)
+        """
         newIrrigationDict = {}
         for k, v in timesToConvert.items():
             newIrrigationDict[datetime.datetime.strptime(k,"%Y-%m-%dT%H:%M:%S%z")] = datetime.timedelta(seconds=v)
