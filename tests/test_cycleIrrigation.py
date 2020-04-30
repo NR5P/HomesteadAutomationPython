@@ -1,4 +1,5 @@
 import unittest, sys
+from freezegun import freezetime
 
 sys.path.insert(0,"../src")
 
@@ -21,6 +22,20 @@ class TestCycleIrrigation(unittest.TestCase):
 
     def test_toJson(self):
         jsonTestString = self.cycleIrrigation1.to_json()
+
+#TODO: left off here building test
+    def test_isBlackedOut(self):
+        duringBlackoutTime = freeze_time("2012-01-14 22:00:00")
+        notDuringBlackoutTime = freeze_time("2012-01-14 10:00:00")
+
+        duringBlackoutTime.start()
+
+        duringBlackoutTime.stop()
+
+
+        notDuringBlackoutTime.start()
+
+        notDuringBlackoutTime.stop()
     
 
 if __name__ == "__main__":
