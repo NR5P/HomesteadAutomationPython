@@ -1,5 +1,5 @@
 import datetime, json
-
+#import RPi.GPIO as GPIO TODO: add back when on pi
 from device import Device
 
 class CycleIrrigation(Device):
@@ -17,12 +17,37 @@ class CycleIrrigation(Device):
         self.cycleOffTime = datetime.timedelta(seconds=cycleOffTime)
         self.blackoutStartTime = datetime.datetime.strptime(blackoutStartTime, "%Y-%m-%dT%H:%M:%S%z")
         self.blackoutStopTime = datetime.datetime.strptime(blackoutStopTime, "%Y-%m-%dT%H:%M:%S%z")
+        self.triggerTime = None
 
         if self not in Device.deviceList:
             Device.deviceList.append(self)
     
     def run(self):
-        pass
+        if not self.isBlackedOut():
+            if self.triggerTime == None:
+                self.triggerTime = datetime.now()
+
+            if self.state == True:
+                if datetime.now() > self.triggerTime + self.cycleOnTime:
+                    self.state = False
+                    self.triggerTime = datetime.now()
+                    #GPIO.output(self.pin, GPIO.LOW) TODO: add back when on pi
+            elif self.state == False:
+                if datetime.now() > self.triggerTime + self.cycleOffTime:
+                    self.state = True
+                    self.triggerTime = datetime.now()
+                    #GPIO.output(self.pin, GPIO.HIGH) TODO: add back when on pi
+        else:
+            self.state = False
+            #GPIO.output(self.pin, GPIO.LOW) TODO: add back when on pi
+
+    def isBlackedOut(self):
+        if self.blackoutStartTime < self.blackoutStopTime:
+            if datetime.now().time() > self.blackoutStartTime and datetime.now().time() < self.blackoutStopTime:
+                return True
+        else:
+            if datetime.now().time() > self.blackoutStartTime or datetime.now().time() < self.blackoutStopTime:
+                return True
 
     @classmethod
     def from_json(cls, json_string):
