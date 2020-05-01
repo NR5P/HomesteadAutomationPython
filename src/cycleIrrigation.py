@@ -31,15 +31,15 @@ class CycleIrrigation(Device):
                 if datetime.now() > self.triggerTime + self.cycleOnTime:
                     self.state = False
                     self.triggerTime = datetime.now()
-                    #GPIO.output(self.pin, GPIO.LOW) TODO: add back when on pi
+                    GPIO.output(self.pin, GPIO.LOW)
             elif self.state == False:
                 if datetime.now() > self.triggerTime + self.cycleOffTime:
                     self.state = True
                     self.triggerTime = datetime.now()
-                    #GPIO.output(self.pin, GPIO.HIGH) TODO: add back when on pi
+                    GPIO.output(self.pin, GPIO.HIGH)
         else:
             self.state = False
-            #GPIO.output(self.pin, GPIO.LOW) TODO: add back when on pi
+            GPIO.output(self.pin, GPIO.LOW)
 
     def isBlackedOut(self):
         if self.blackoutStartTime < self.blackoutStopTime:

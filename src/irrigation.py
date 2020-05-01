@@ -19,9 +19,20 @@ class Irrigation(Device):
             Device.deviceList.append(self)
 
     def run(self):
-        pass
-        #if isDayToIrrigate():
-            #for irrigationTime, irrigationDuration in self.irrigationTimes.items():
+        if isDayToIrrigate():
+            for irrigationTime, irrigationDuration in self.irrigationTimes.items():
+                timeToStop = irrigationTime + irrigationDuration
+                if timeToStop > irrigationTime:
+                    if datetime.now() > irrigationTime and datetime.now() < timeToStop:
+                        GPIO.output(self.pin, GPIO.HIGH)
+                    else:
+                        GPIO.output(self.pin, GPIO.LOW)
+                else:
+                    if datetime.now() > irrigationTime or datetime.now() < timeToStop:
+                        GPIO.output(self.pin, GPIO.HIGH)
+                    else:
+                        GPIO.output(self.pin, GPIO.LOW)
+
 
 
     @classmethod
