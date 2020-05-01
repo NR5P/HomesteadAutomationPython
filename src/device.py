@@ -12,6 +12,7 @@ class Device:
             deviceList = list of all devices that are of Device type
     """
     deviceList = []
+    allOn = False
 
     def __init__(self, id, name, notes, pin):
         self.id = id
@@ -19,6 +20,7 @@ class Device:
         self.notes = notes
         self.pin = pin
         self.state = False
+        self.on = False
         self.createdOn = datetime.datetime.now()
     
     def setNewId(self, newId):
@@ -41,6 +43,9 @@ class Device:
                 return False
         self.name = newName
         return True
+
+    def turnOff(self):
+        self.on = False
     
     @staticmethod
     def convertToDatetimeTimedeltaDict(timesToConvert):
@@ -53,6 +58,16 @@ class Device:
         for k, v in timesToConvert.items():
             newIrrigationDict[datetime.datetime.strptime(k,"%Y-%m-%dT%H:%M:%S%z")] = datetime.timedelta(seconds=v)
         return newIrrigationDict
+
+    @staticmethod
+    def isAllOn():
+        return Device.allOn
+    
+    @staticmethod
+    def turnAllOff():
+        for device in Device.deviceList:
+            device.turnOff()
+
 
         
         

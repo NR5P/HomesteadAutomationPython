@@ -23,7 +23,7 @@ class CycleIrrigation(Device):
             Device.deviceList.append(self)
     
     def run(self):
-        if not self.isBlackedOut():
+        if not self.isBlackedOut() and self.on == True:
             if self.triggerTime == None:
                 self.triggerTime = datetime.now()
 

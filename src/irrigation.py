@@ -19,19 +19,26 @@ class Irrigation(Device):
             Device.deviceList.append(self)
 
     def run(self):
-        if isDayToIrrigate():
+        if isDayToIrrigate() and self.on == True:
             for irrigationTime, irrigationDuration in self.irrigationTimes.items():
                 timeToStop = irrigationTime + irrigationDuration
                 if timeToStop > irrigationTime:
                     if datetime.now() > irrigationTime and datetime.now() < timeToStop:
+                        self.state = True
                         GPIO.output(self.pin, GPIO.HIGH)
                     else:
+                        self.state = False
                         GPIO.output(self.pin, GPIO.LOW)
                 else:
                     if datetime.now() > irrigationTime or datetime.now() < timeToStop:
+                        self.state = True
                         GPIO.output(self.pin, GPIO.HIGH)
                     else:
+                        self.state = False
                         GPIO.output(self.pin, GPIO.LOW)
+        else:
+            self.state = False
+            GPIO.output(self.pin, GPIO.LOW)
 
 
 
