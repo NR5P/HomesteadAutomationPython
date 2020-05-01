@@ -1,5 +1,5 @@
 import datetime, json
-
+import RPi.GPIO as GPIO
 from device import Device
 
 class Irrigation(Device):
@@ -19,18 +19,18 @@ class Irrigation(Device):
             Device.deviceList.append(self)
 
     def run(self):
-        if isDayToIrrigate() and self.on == True:
+        if self.isDayToIrrigate() and self.on == True:
             for irrigationTime, irrigationDuration in self.irrigationTimes.items():
                 timeToStop = irrigationTime + irrigationDuration
                 if timeToStop > irrigationTime:
-                    if datetime.now() > irrigationTime and datetime.now() < timeToStop:
+                    if datetime.datetime.now() > irrigationTime and datetime.datetime.now() < timeToStop:
                         self.state = True
                         GPIO.output(self.pin, GPIO.HIGH)
                     else:
                         self.state = False
                         GPIO.output(self.pin, GPIO.LOW)
                 else:
-                    if datetime.now() > irrigationTime or datetime.now() < timeToStop:
+                    if datetime.datetime.now() > irrigationTime or datetime.datetime.now() < timeToStop:
                         self.state = True
                         GPIO.output(self.pin, GPIO.HIGH)
                     else:

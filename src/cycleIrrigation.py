@@ -1,5 +1,5 @@
 import datetime, json
-#import RPi.GPIO as GPIO TODO: add back when on pi
+import RPi.GPIO as GPIO
 from device import Device
 
 class CycleIrrigation(Device):
@@ -25,17 +25,17 @@ class CycleIrrigation(Device):
     def run(self):
         if not self.isBlackedOut() and self.on == True:
             if self.triggerTime == None:
-                self.triggerTime = datetime.now()
+                self.triggerTime = datetime.datetime.now()
 
             if self.state == True:
-                if datetime.now() > self.triggerTime + self.cycleOnTime:
+                if datetime.datetime.now() > self.triggerTime + self.cycleOnTime:
                     self.state = False
-                    self.triggerTime = datetime.now()
+                    self.triggerTime = datetime.datetime.now()
                     GPIO.output(self.pin, GPIO.LOW)
             elif self.state == False:
-                if datetime.now() > self.triggerTime + self.cycleOffTime:
+                if datetime.datetime.now() > self.triggerTime + self.cycleOffTime:
                     self.state = True
-                    self.triggerTime = datetime.now()
+                    self.triggerTime = datetime.datetime.now()
                     GPIO.output(self.pin, GPIO.HIGH)
         else:
             self.state = False
@@ -43,10 +43,10 @@ class CycleIrrigation(Device):
 
     def isBlackedOut(self):
         if self.blackoutStartTime < self.blackoutStopTime:
-            if datetime.now().time() > self.blackoutStartTime and datetime.now().time() < self.blackoutStopTime:
+            if datetime.datetime.now().time() > self.blackoutStartTime.time() and datetime.datetime.now().time() < self.blackoutStopTime.time():
                 return True
         else:
-            if datetime.now().time() > self.blackoutStartTime or datetime.now().time() < self.blackoutStopTime:
+            if datetime.datetime.now().time() > self.blackoutStartTime.time() or datetime.datetime.now().time() < self.blackoutStopTime.time():
                 return True
 
     @classmethod

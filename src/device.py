@@ -68,6 +68,10 @@ class Device:
         for device in Device.deviceList:
             device.turnOff()
 
+    @staticmethod
+    def turnMainStateOn():
+        Device.allOn = True 
+
 
         
         
