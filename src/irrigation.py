@@ -1,6 +1,7 @@
 import datetime, json
 import RPi.GPIO as GPIO
 from device import Device
+from log import Log
 
 class Irrigation(Device):
     """
@@ -24,21 +25,31 @@ class Irrigation(Device):
                 timeToStop = irrigationTime + irrigationDuration
                 if timeToStop > irrigationTime:
                     if datetime.datetime.now() > irrigationTime and datetime.datetime.now() < timeToStop:
-                        self.state = True
-                        GPIO.output(self.pin, GPIO.HIGH)
+                        if self.state == False:
+                            self.state = True
+                            GPIO.output(self.pin, GPIO.HIGH)
+                            Log.irrigationHigh()
                     else:
-                        self.state = False
-                        GPIO.output(self.pin, GPIO.LOW)
+                        if self.state == True:
+                            self.state = False
+                            GPIO.output(self.pin, GPIO.LOW)
+                            Log.irrigationLow()
                 else:
                     if datetime.datetime.now() > irrigationTime or datetime.datetime.now() < timeToStop:
-                        self.state = True
-                        GPIO.output(self.pin, GPIO.HIGH)
+                        if self.state == False:
+                            self.state = True
+                            GPIO.output(self.pin, GPIO.HIGH)
+                            Log.irrigationHigh()
                     else:
-                        self.state = False
-                        GPIO.output(self.pin, GPIO.LOW)
+                        if self.state == True:
+                            self.state = False
+                            GPIO.output(self.pin, GPIO.LOW)
+                            Log.irrigationLow()
         else:
-            self.state = False
-            GPIO.output(self.pin, GPIO.LOW)
+            if self.state == True:
+                self.state = False
+                GPIO.output(self.pin, GPIO.LOW)
+                Log.irrigationLow()
 
 
 

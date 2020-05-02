@@ -12,7 +12,7 @@ class Device:
             deviceList = list of all devices that are of Device type
     """
     deviceList = []
-    allOn = False
+    allOn = True
 
     def __init__(self, id, name, notes, pin):
         self.id = id
@@ -20,7 +20,7 @@ class Device:
         self.notes = notes
         self.pin = pin
         self.state = False
-        self.on = False
+        self.on = True
         self.createdOn = datetime.datetime.now()
     
     def setNewId(self, newId):
@@ -56,7 +56,7 @@ class Device:
         """
         newIrrigationDict = {}
         for k, v in timesToConvert.items():
-            newIrrigationDict[datetime.datetime.strptime(k,"%Y-%m-%dT%H:%M:%S%z")] = datetime.timedelta(seconds=v)
+            newIrrigationDict[datetime.datetime.strptime(k,"%Y-%m-%dT%H:%M:%S")] = datetime.timedelta(seconds=v)
         return newIrrigationDict
 
     @staticmethod
