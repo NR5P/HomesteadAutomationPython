@@ -26,29 +26,24 @@ class Irrigation(Device):
                 if timeToStop > irrigationTime:
                     if datetime.datetime.now() > irrigationTime and datetime.datetime.now() < timeToStop:
                         if self.state == False:
-                            self.state = True
-                            GPIO.output(self.pin, GPIO.HIGH)
+                            self.gpioOn()
                             Log.irrigationHigh()
                     else:
                         if self.state == True:
-                            self.state = False
-                            GPIO.output(self.pin, GPIO.LOW)
+                            self.gpioOff()
                             Log.irrigationLow()
                 else:
                     if datetime.datetime.now() > irrigationTime or datetime.datetime.now() < timeToStop:
                         if self.state == False:
-                            self.state = True
-                            GPIO.output(self.pin, GPIO.HIGH)
+                            self.gpioOn()
                             Log.irrigationHigh()
                     else:
                         if self.state == True:
-                            self.state = False
-                            GPIO.output(self.pin, GPIO.LOW)
+                            self.gpioOff()
                             Log.irrigationLow()
         else:
             if self.state == True:
-                self.state = False
-                GPIO.output(self.pin, GPIO.LOW)
+                self.gpioOff()
                 Log.irrigationLow()
 
 

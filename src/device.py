@@ -46,6 +46,14 @@ class Device:
 
     def turnOff(self):
         self.on = False
+
+    def gpioOn(self):
+        self.state = True
+        GPIO.output(self.pin, GPIO.HIGH)
+
+    def gpioOff(self):
+        self.state = False
+        GPIO.output(self.pin, GPIO.LOW)
     
     @staticmethod
     def convertToDatetimeTimedeltaDict(timesToConvert):

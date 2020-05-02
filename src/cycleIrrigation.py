@@ -31,21 +31,18 @@ class CycleIrrigation(Device):
             if self.state == True:
                 if datetime.datetime.now() > self.triggerTime + self.cycleOnTime:
                     if self.state == True:
-                        self.state = False
+                        self.gpioOff()
                         self.triggerTime = datetime.datetime.now()
-                        GPIO.output(self.pin, GPIO.LOW)
                         Log.cycleIrrigationLow()
             elif self.state == False:
                 if datetime.datetime.now() > self.triggerTime + self.cycleOffTime:
                     if self.state == False:
-                        self.state = True
+                        self.gpioOn()
                         self.triggerTime = datetime.datetime.now()
-                        GPIO.output(self.pin, GPIO.HIGH)
                         Log.cycleIrrigationHigh()
         else:
             if self.state == True:
-                self.state = False
-                GPIO.output(self.pin, GPIO.LOW)
+                self.gpioOff()
                 Log.cycleIrrigationLow()
 
     def isBlackedOut(self):
