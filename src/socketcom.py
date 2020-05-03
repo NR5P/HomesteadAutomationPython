@@ -20,6 +20,8 @@ class SocketCom:
                 msg = conn.recv(msg_length).decode("utf-8")
                 if msg == DISCONNECT_MSG:
                     connected = False
+                else:
+                    socketBodyHandler = socketBodyHandler(msg)
                 conn.send("received".encode("utf-8"))
         conn.close()
 
