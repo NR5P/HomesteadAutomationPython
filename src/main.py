@@ -14,6 +14,10 @@ def main():
     setupBoard()
     time.sleep(5)
 
+    #TODO: pull from the database and get all saved devices
+
+    #TODO: run socket on thread to tell what devices state are and to accept new devices or trigger to recheck database for new devices and delete old
+
     CycleIrrigation(3, "by barn","random notes", 12, 5, 10, "2020-03-09T19:44:18", "2020-03-09T06:44:18")
     Irrigation(3, "barn irrigation", "random notes", 16, [1, 4, 5],{"2020-03-08T01:54:57":3600,"2020-04-08T01:52:51":10})
     Device.turnMainStateOn()
