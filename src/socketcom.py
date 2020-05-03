@@ -1,5 +1,4 @@
-import socket
-import thread
+import socket, thread
 
 class SocketCom:
     def __init__(self):
@@ -21,6 +20,7 @@ class SocketCom:
                 msg = conn.recv(msg_length).decode("utf-8")
                 if msg == DISCONNECT_MSG:
                     connected = False
+                conn.send("received".encode("utf-8"))
         conn.close()
 
     def start(self):
