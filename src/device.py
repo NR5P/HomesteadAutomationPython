@@ -12,6 +12,22 @@ class Device:
             deviceList = list of all devices that are of Device type
     """
     deviceList = []
+    outputPinDict = {
+        5:False,
+        6:False,
+        12:False,
+        13:False,
+        16:False,
+        18:False,
+        20:False,
+        21:False,
+        22:False,
+        23:False,
+        24:False,
+        25:False,
+        26:False,
+        27:False,
+    }
     allOn = True
 
     def __init__(self, id, name, notes, pin):
@@ -21,14 +37,6 @@ class Device:
         self.pin = pin
         self.state = False
         self.on = True
-        self.createdOn = datetime.datetime.now()
-    
-    def setNewId(self, newId):
-        for i in Device.deviceList:
-            if i.id == newId:
-                return False
-        self.id = newId
-        return True
     
     def setPin(self, newPin):
         for i in Device.deviceList:

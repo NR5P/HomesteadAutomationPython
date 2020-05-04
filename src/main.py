@@ -18,8 +18,8 @@ def main():
 
     db = DbConnection()
 
-    CycleIrrigation(3, "by barn","random notes", 12, 5, 10, "2020-03-09T19:44:18", "2020-03-09T06:44:18") #TODO: test data
-    Irrigation(3, "barn irrigation", "random notes", 16, [1, 4, 5],{"2020-03-08T01:54:57":3600,"2020-04-08T01:52:51":10}) #TODO: test data
+    #CycleIrrigation(3, "by barn","random notes", 12, 5, 10, "2020-03-09T19:44:18", "2020-03-09T06:44:18") #TODO: test data
+    #Irrigation(3, "barn irrigation", "random notes", 16, [1, 4, 5],{"2020-03-08T01:54:57":3600,"2020-04-08T01:52:51":10}) #TODO: test data
     Device.turnMainStateOn()
 
     socket = SocketCom()
@@ -37,10 +37,9 @@ def main():
 
 def setupBoard():
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(12, GPIO.OUT)
-    GPIO.output(12, GPIO.LOW)
-    GPIO.setup(16, GPIO.OUT)
-    GPIO.output(16, GPIO.LOW)
+    for pin in Device.ouptutPinDict.keys():
+        GPIO.setup(pin,GPIO.OUT) 
+        GPIO.output(pin, GPIO.LOW)
 
 def cleanup():
     GPIO.cleanup()

@@ -8,18 +8,23 @@ class DbConnection:
         print("mongodb connected from python")
         self.db = client["homestead"]
         
-        self.irrigationCollection = db["irrigationschemas"]
-        self.cycleIrrigationCollection = db["cycleirrigationschemas"]
+        self.irrigationCollection = db.irrigationschemas
+        self.cycleIrrigationCollection = db.cycleirrigationschemas
 
         self.equalizeDevicesWithDb()
 
     def equalizeDevicesWithDb(self):
-        pass
-
-    def checkAgainstIrrigation(self):
+        idListOfDeviceList = []
         for dbDevice in irrigationCollection.find():
             for device in Device.deviceList:
-
-
-    def checkAgainstCycleIrrigation(self):
-        pass
+                idListOfDeviceList.append(device.id)
+                if dbDevice._id == device.id:
+                    if dbDevice.type == 1:
+                        #cycle irrigation
+                        pass
+                    elif dbDevice.type == 2:
+                        #irrigation
+                        pass
+                else:
+                    #not here so add
+            #check if one needs to be deleted that has been deleted in db
