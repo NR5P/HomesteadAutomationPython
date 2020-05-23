@@ -3,8 +3,8 @@ from irrigation import Irrigation
 from device import Device
 from log import Log
 from socketcom import SocketCom
-from dbConection import DbConnection
-import time, thread
+from dbConnection import DbConnection
+import time, threading
 import RPi.GPIO as GPIO
 
 
@@ -23,7 +23,7 @@ def main():
     Device.turnMainStateOn()
 
     socket = SocketCom()
-    thread = threading.thread(target=socket.start)
+    thread = threading.Thread(target=socket.start)
     thread.start()
 
     while True: 
@@ -37,7 +37,7 @@ def main():
 
 def setupBoard():
     GPIO.setmode(GPIO.BCM)
-    for pin in Device.ouptutPinDict.keys():
+    for pin in Device.outputPinDict.keys():
         GPIO.setup(pin,GPIO.OUT) 
         GPIO.output(pin, GPIO.LOW)
 

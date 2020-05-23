@@ -1,15 +1,15 @@
-import socket, thread
+import socket, threading
 
 class SocketCom:
     def __init__(self):
-        IP = socket.gethostname()
-        PORT = 1234
-        ADDR = (IP, PORT)
-        HEADERSIZE = 64
-        DISCONNECT_MSG = "~disconnect~"
-        socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.bind(ADDR)
-        s.listen(5)
+        self.IP = socket.gethostname()
+        self.PORT = 1234
+        self.ADDR = (self.IP, self.PORT)
+        self.HEADERSIZE = 64
+        self.DISCONNECT_MSG = "~disconnect~"
+        self.socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socketServer.bind(self.ADDR)
+        #s.listen(5)
     
     def handle_client(self, conn, addr):
         connected = True
@@ -27,10 +27,10 @@ class SocketCom:
 
     def start(self):
         print("server starting...")
-        print(f"server listening on port {PORT}")
-        socket.listen()
+        print(f"server listening on port {self.PORT}")
+        self.socketServer.listen()
         while True:
-            conn, addr = socket.accept()
+            conn, addr = self.socketServer.accept()
             thread = threading.Thread(target=handle_client, args=(conn, addr)) 
             thread.start()
             print(f"active connections: {threading.activeCount() - 1}")
