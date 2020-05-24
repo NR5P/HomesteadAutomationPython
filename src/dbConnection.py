@@ -27,8 +27,6 @@ class DbConnection:
         irrigationObject = None
         for index, item in enumerate(irrigationResult):
             irrigationObject = Irrigation(item[0],item[2],item[3],item[1],item[5],None)
-            print(item[6])
-            print(item[7])
             irrigationObject.irrigationTimes[item[6]] = item[7]
             if index != 0 and CycleIrrigation.id != item[0]:
                 Device.deviceList.append(irrigationObject) 
