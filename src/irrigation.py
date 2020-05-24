@@ -14,7 +14,10 @@ class Irrigation(Device):
     def __init__(self, id, name, notes, pin, daysOfWeekToIrrigate, irrigationTimes):
         super().__init__(id, name, notes, pin)
         self.daysOfWeekToIrrigate = daysOfWeekToIrrigate
-        self.irrigationTimes = Device.convertToDatetimeTimedeltaDict(irrigationTimes)
+        if irrigationTimes != None:
+            self.irrigationTimes = Device.convertToDatetimeTimedeltaDict(irrigationTimes)
+        else:
+            self.irrigationTimes = {}
 
         if self not in Device.deviceList:
             Device.deviceList.append(self)
@@ -74,7 +77,8 @@ class Irrigation(Device):
         return tempDict
     
     def isDayToIrrigate(self):
-        if datetime.datetime.today().weekday() in self.daysOfWeekToIrrigate:
-            return True
-        else:
-            return False
+        if self.daysOfWeekToIrrigate != None:
+            if datetime.datetime.today().weekday() in self.daysOfWeekToIrrigate:
+                return True
+            else:
+                return False
