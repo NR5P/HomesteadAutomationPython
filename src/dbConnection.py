@@ -16,8 +16,10 @@ class DbConnection:
         for item in irrigationResult:
             onTimeSeconds = item[4] * 3600 + item[5] * 60 + item[6]
             offTimeSeconds = item[7] * 3600 + item[8] * 60 + item[9]
-            blackoutStarttime = f"0000-00-00T{item[10]}:00"
-            blackoutStoptime = f"0000-00-00T{item[11]}:00"
+            print(item[10])
+            print(item[11])
+            blackoutStarttime = f"1900-01-01T{item[10]}:00"
+            blackoutStoptime = f"1900-01-01T{item[11]}:00"
             Device.deviceList.append(CycleIrrigation(item[0],item[1],item[2],item[12],onTimeSeconds,offTimeSeconds,
                                     blackoutStarttime, blackoutStoptime))
 
