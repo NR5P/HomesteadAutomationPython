@@ -16,12 +16,17 @@ class DbConnection:
         for item in irrigationResult:
             onTimeSeconds = item[4] * 3600 + item[5] * 60 + item[6]
             offTimeSeconds = item[7] * 3600 + item[8] * 60 + item[9]
-            print(item[10])
-            print(item[11])
             blackoutStarttime = f"1900-01-01T{item[10]}:00"
             blackoutStoptime = f"1900-01-01T{item[11]}:00"
             Device.deviceList.append(CycleIrrigation(item[0],item[1],item[2],item[12],onTimeSeconds,offTimeSeconds,
                                     blackoutStarttime, blackoutStoptime))
+
+        mycursor.execute("SELECT irrigation.id, irrigation.pin, irrigation.name, irrigation.notes, irrigation.state, irrigationRunTimes.daysToIrrigate, irrigationRunTimes.runTime, irrigationRunTimes.startTime FROM irrigation JOIN irrigationRunTimes ON irrigation.id = irrigationRunTimes.irrigationId ORDER BY id")
+        cycleIrrigationResult = mycursor.fetchall()
+        for item in cycleIrrigationResult:
+             
+
+        print(cycleIrrigationResult)
 
     def create_connection(self, host_name, user_name, user_password, database):
         connection = None
